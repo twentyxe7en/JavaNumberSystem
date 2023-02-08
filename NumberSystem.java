@@ -1,24 +1,39 @@
+import java.util.HashMap;
 
-import java.util.ArrayList;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author zxlbl
- */
 public class NumberSystem {
 
     public NumberSystem() {
+    // Initialize hexadecimal map
+        hexa.put(0, '0');
+        hexa.put(1, '1');
+        hexa.put(10, '2');
+        hexa.put(11, '3');
+        hexa.put(100, '4');
+        hexa.put(101, '5');
+        hexa.put(110, '6');
+        hexa.put(111, '7');
+        hexa.put(1000, '8');
+        hexa.put(1001, '9');
+        hexa.put(1010, 'a');
+        hexa.put(1011, 'b');
+        hexa.put(1100, 'c');
+        hexa.put(1101, 'd');
+        hexa.put(1110, 'e');
+        hexa.put(1111, 'f');
+         // Initialize octal map
+        octa.put(0, 0);
+        octa.put(1, 1);
+        octa.put(10, 2);
+        octa.put(11, 3);
+        octa.put(100, 4);
+        octa.put(101, 5);
+        octa.put(110, 6);
+        octa.put(111, 7);
     }
-    
-    private int[] bin = {0,1,10,11,100,101,110,111,1000,1001,1010,1011,1100,1101,1110,1111};
-    private String x16 = "0123456789abcdef";
-    private int[] oct = {0,1,10,11,100,101,110,111};
-    
+
+    private HashMap<Integer, Character> hexa = new HashMap<Integer, Character>();
+    private HashMap<Integer, Integer> octa = new HashMap<Integer, Integer>();
+
     public int toBinary(int n) {
         int binary = 0;
         int i = 0;
@@ -31,33 +46,23 @@ public class NumberSystem {
         }
         return binary;
     }
-    
+
     public String toHex(int n) {
         String hex = "";
         while (n != 0) {
-            for (int i = 0; i < bin.length; i++) {
-                if (n % 10000 == bin[i]) {
-                    hex = x16.charAt(i) + hex;
-                    n /= 10000;
-                    break;
-                }
-            }
+            hex = hexa.get(n % 10000) + hex;
+            n /= 10000;
         }
         return hex;
     }
-    
+
     public int toOctal(int n) {
         int octal = 0;
         int e = 0;
         while (n != 0) {
-            for (int i = 0; i < oct.length; i++) {
-                if (n % 1000 == oct[i]) {
-                    octal += i * Math.pow(10, e);
-                    n /= 1000;
-                    e++;
-                    break;
-                }
-            }
+            octal += octa.get(n % 1000) * Math.pow(10, e);
+            n /= 1000;
+            e++;
         }
         return octal;
     }
